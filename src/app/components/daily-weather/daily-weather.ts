@@ -13,7 +13,9 @@ export class DailyWeatherComponent implements OnInit {
     
     constructor() {
         this.searchTerm = '';
-        this.weatherData = {};
+        this.weatherData = { forecast: {
+            forecastday: []
+        }};
     }
 
     ngOnInit(): void {

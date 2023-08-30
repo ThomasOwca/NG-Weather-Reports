@@ -8,6 +8,7 @@ import { WeatherService } from './services/weather.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnInit {
   title = 'hello-world';
   weatherService: WeatherService;
@@ -18,7 +19,11 @@ export class AppComponent implements OnInit {
 
   constructor(private http: HttpClient) {
     this.searchVal = "60523";
-    this.weatherData = {};
+    this.weatherData = {
+      forecast: {
+        forecastday: []
+      }
+    };
     this.weatherService = new WeatherService(this.searchVal, http);
     this.locationName = "";
   }
@@ -28,18 +33,60 @@ export class AppComponent implements OnInit {
     this.getSearchValFromSearchComp(this.searchVal);
   }
 
-  getSearchValFromSearchComp(value: string){
+  getSearchValFromSearchComp(value: string) {
     this.searchVal = value;
 
     // Call the Weather Service and attempt to fetch new weather data based on search term.
     this.weatherService.getWeatherForecastBySearchTerm(this.searchVal)
-    .subscribe({
+      .subscribe({
 
-      next: (result) => {
-        this.weatherData = result;
-      },
+        next: (result) => {
+          this.weatherData = result;
 
-      error: (error) => console.error(error),
-    });
+          for (let i = 0; i < 14; i++) {
+            let forecastDate = new Date(result.forecast.forecastday[i].date);
+            let forecaseDateLocal = new Date(forecastDate.toLocaleDateString());
+            let forecastDay = forecaseDateLocal.getDate() + 1;
+            let forecastMonth = forecaseDateLocal.getMonth() + 1;
+            let dayOfWeek = this.getDayOfWeek(forecaseDateLocal.getDay() + 1);
+
+            debugger;
+
+            this.weatherData.forecast.forecastday[i].month = forecastMonth;
+            this.weatherData.forecast.forecastday[i].monthDay = forecastDay;
+            this.weatherData.forecast.forecastday[i].dayOfTheWeek = dayOfWeek;
+          }
+
+          console.log(this.weatherData);
+        },
+
+        error: (error) => console.error(error),
+      });
+  }
+
+  getDayOfWeek(number: number) {
+    if (number == 1) {
+      return "Monday"
+    }
+    else if (number == 2) {
+      return "Tuesday"
+    }
+    else if (number == 3) {
+      return "Wednesday"
+    }
+    else if (number == 4) {
+      return "Thursday"
+    }
+    else if (number == 5) {
+      return "Friday"
+    }
+    else if (number == 6) {
+      return "Saturday"
+    }
+    else if (number == 0) {
+      return "Sunday"
+    }
+
+    return "";
   }
 }

@@ -68,11 +68,9 @@
 
   .content {
     display: flex;
-    margin: 82px auto 32px;
+    margin: 100px 180px 35px;
     padding: 0 16px;
-    max-width: 960px;
     flex-direction: column;
-    align-items: center;
   }
 
   svg.material-icons {
@@ -319,8 +317,17 @@
 
 <div class="content" role="main">
   <search-section (searchChange)="getSearchValFromSearchComp($event)"></search-section>
-  <location-section></location-section>
-  <daily-weather [searchTerm]="searchVal" [weatherData]="weatherData"></daily-weather>
+  <div class="row">
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <location-section></location-section>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <daily-weather [searchTerm]="searchVal" [weatherData]="weatherData"></daily-weather>
+    </div>
+  </div>
+
+  
+
 
   <!-- Highlight Card -->
   <!-- <div class="card highlight-card card-small">

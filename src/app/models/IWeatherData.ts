@@ -1,7 +1,9 @@
+import { NumberValueAccessor } from "@angular/forms";
+
 export default interface WeatherData {
     location?: Location;
     current?:  Current;
-    forecast?: Forecast;
+    forecast: Forecast;
 }
 
 export interface Current {
@@ -83,11 +85,14 @@ export enum WindDir {
 }
 
 export interface Forecast {
-    forecastday?: Forecastday[];
+    forecastday: Forecastday[];
 }
 
 export interface Forecastday {
-    date?:       Date;
+    date:       Date;
+    monthDay?:   number;
+    month?:      number;
+    dayOfTheWeek: string;
     date_epoch?: number;
     day?:        Day;
     astro?:      Astro;
