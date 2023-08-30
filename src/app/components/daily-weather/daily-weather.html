@@ -1,0 +1,25 @@
+<div>
+    <h1>14 Day Forecast</h1>
+    <h6>Searched Term: {{searchTerm}}</h6>
+    <div >
+        <h4>Currently showing for: 
+            <span *ngIf="weatherData.location">
+                {{weatherData.location.name}}, {{weatherData.location.region}}
+            </span>
+        </h4>
+        <label *ngIf="weatherData.current">Current Conditions:  {{weatherData.current.feelslike_f}} F and {{weatherData.current.condition?.text}}</label>
+    </div>
+    <ul>
+        <li style="list-style-type: none; margin: 20px" *ngFor="let day of weatherData?.forecast?.forecastday">
+            <img src="{{day?.day?.condition?.icon}}" />
+            <br />
+            <span>{{day?.date}}</span>
+            <br />
+            <span>Avg Temp: {{day?.day?.avgtemp_f}} F</span>
+            <br />
+            <span>High: {{day?.day?.maxtemp_f}} F, Low: {{day?.day?.mintemp_f}} F</span>
+        </li>
+    </ul>
+    
+    
+</div>
