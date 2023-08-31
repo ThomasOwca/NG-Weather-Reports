@@ -1,4 +1,30 @@
 <div>
-    <h1>Your Location</h1>
+    <h1>Location</h1>
     <h3>{{ getLocationDisplay() }}</h3>
+
+    <span class="row">
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <img src="{{currentWeather.current?.condition?.icon}}" />
+        </div>
+        <div class="col-sm-8 col-md-8 col-lg-8" *ngIf="currentWeather">
+            <h3><strong>{{currentWeather.current?.condition?.text}}</strong></h3>
+            <strong>Actual Temp: {{currentWeather.current?.temp_f}} F</strong>
+            <h6><i><strong>Actual: {{currentWeather.current?.temp_c}} C</strong></i></h6>
+            <label>
+                Wind Direction: {{currentWeather.current?.wind_dir}}
+            </label>
+            <br />
+            <label>
+                Wind Speed: {{currentWeather.current?.wind_mph}} MPH
+            </label>
+            <br />
+            <label>
+                Precipitation: {{currentWeather.current?.precip_in}}"
+            </label>
+            <br />
+            <label>
+                Humidity: {{currentWeather.current?.humidity}} %
+            </label>
+        </div>
+    </span>
 </div>

@@ -7,11 +7,11 @@
                 {{weatherData.location.name}}, {{weatherData.location.region}}
             </span>
         </h4>
-        <label *ngIf="weatherData.current">Current Conditions: {{weatherData.current.feelslike_f}} F and
+        <label *ngIf="weatherData.current">Current Conditions: Feels like {{weatherData.current.feelslike_f}} F and
             {{weatherData.current.condition?.text}}</label>
     </div>
     <div class="row">
-        <div class="card col-lg-2 col-md-2 col-sm-2" style="width:200px"
+        <div class="card col-lg-2 col-md-2 col-sm-12" style="width:180px"
             *ngFor="let day of weatherData?.forecast?.forecastday">
             <img class="card-img-top" src="{{day?.day?.condition?.icon}}" alt="Card image">
             <div class="card-body">
@@ -26,7 +26,7 @@
                     <br />
                     <span><strong>Low: </strong>{{day?.day?.mintemp_f}} F</span>
                 </p>
-                <a href="#" class="btn btn-primary">See Hourly</a>
+                <a href="#" class="btn btn-primary">{{day?.dayOfTheWeek}}'s Hourly</a>
             </div>
         </div>
     </div>

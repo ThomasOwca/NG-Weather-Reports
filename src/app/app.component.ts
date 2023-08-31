@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { ICurrentWeatherData } from './models/ICurrentWeatherData';
 import IWeatherData from './models/IWeatherData';
 import { WeatherService } from './services/weather.service';
 
@@ -14,17 +15,21 @@ export class AppComponent implements OnInit {
   weatherService: WeatherService;
   @Input() searchVal: string;
   @Input() weatherData: IWeatherData;
+  @Input() currentWeatherData: ICurrentWeatherData;
   @Input() locationName: string;
 
 
   constructor(private http: HttpClient) {
     this.searchVal = "60523";
+
     this.weatherData = {
       forecast: {
         forecastday: []
       }
     };
-    this.weatherService = new WeatherService(this.searchVal, http);
+
+    this.currentWeatherData = {};
+    this.weatherService = new WeatherService(this.searchVal, this.searchVal, http);
     this.locationName = "";
   }
 
@@ -62,6 +67,33 @@ export class AppComponent implements OnInit {
 
         error: (error) => console.error(error),
       });
+
+      // Call the Weather Service and attempt to fetch new weather data based on search term.
+    this.weatherService.getCurrentWeather(this.searchVal)
+    .subscribe({
+
+      next: (result) => {
+        this.currentWeatherData = result;
+
+        // for (let i = 0; i < 14; i++) {
+        //   let forecastDate = new Date(result.forecast.forecastday[i].date);
+        //   let forecaseDateLocal = new Date(forecastDate.toLocaleDateString());
+        //   let forecastDay = forecaseDateLocal.getDate() + 1;
+        //   let forecastMonth = forecaseDateLocal.getMonth() + 1;
+        //   let dayOfWeek = this.getDayOfWeek(forecaseDateLocal.getDay() + 1);
+
+        //   debugger;
+
+        //   this.weatherData.forecast.forecastday[i].month = forecastMonth;
+        //   this.weatherData.forecast.forecastday[i].monthDay = forecastDay;
+        //   this.weatherData.forecast.forecastday[i].dayOfTheWeek = dayOfWeek;
+        // }
+
+        console.log(this.currentWeatherData);
+      },
+
+      error: (error) => console.error(error),
+    });
   }
 
   getDayOfWeek(number: number) {
@@ -83,7 +115,7 @@ export class AppComponent implements OnInit {
     else if (number == 6) {
       return "Saturday"
     }
-    else if (number == 0) {
+    else if (number == 7) {
       return "Sunday"
     }
 
