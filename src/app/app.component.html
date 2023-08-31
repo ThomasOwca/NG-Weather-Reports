@@ -68,7 +68,7 @@
 
   .content {
     display: flex;
-    margin: 100px 180px 35px;
+    margin: 100px 350px 35px;
     padding: 0 16px;
     flex-direction: column;
   }
@@ -319,7 +319,7 @@
   <search-section (searchChange)="getSearchValFromSearchComp($event)"></search-section>
   <div class="row">
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <location-section [currentWeather]="currentWeatherData"></location-section>
+      <location-section [currentWeather]="currentWeatherData" [imgUrl]="formattedImgUrl"></location-section>
     </div>
     <div class="col-lg-6 col-md-12 col-sm-12">
       <daily-weather [searchTerm]="searchVal" [weatherData]="weatherData"></daily-weather>

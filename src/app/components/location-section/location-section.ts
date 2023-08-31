@@ -10,6 +10,7 @@ export class LocationSectionComponent implements OnInit {
     @Input() city: string;
     @Input() state: string;
     @Input() zipCode: string;
+    @Input() imgUrl: string;
     @Input() currentWeather: ICurrentWeatherData;
     
     constructor() {
@@ -17,6 +18,7 @@ export class LocationSectionComponent implements OnInit {
         this.state = 'Illinois';
         this.zipCode = '60523';
         this.currentWeather = {};
+        this.imgUrl = "";
     }
 
     ngOnInit(): void {
@@ -27,16 +29,7 @@ export class LocationSectionComponent implements OnInit {
         this.city = this.currentWeather?.location?.name ?? "";
         this.state = this.currentWeather?.location?.region ?? "";
         
-        let formattedLocation = this.city + ", " + this.state;
-        
-        // if (searchVal) {
-        //     let formattedLocation = this.city + ", " + this.state + " " + this.zipCode;
-        // }
-        // else {
-        //     // Call Weather service and get location
-        // }
-
-        
+        let formattedLocation = this.city + ", " + this.state;        
         return formattedLocation;
     }
 }

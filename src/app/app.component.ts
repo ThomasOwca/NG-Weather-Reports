@@ -17,7 +17,8 @@ export class AppComponent implements OnInit {
   @Input() weatherData: IWeatherData;
   @Input() currentWeatherData: ICurrentWeatherData;
   @Input() locationName: string;
-
+  
+  formattedImgUrl: string = "";
 
   constructor(private http: HttpClient) {
     this.searchVal = "60523";
@@ -55,8 +56,6 @@ export class AppComponent implements OnInit {
             let forecastMonth = forecaseDateLocal.getMonth() + 1;
             let dayOfWeek = this.getDayOfWeek(forecaseDateLocal.getDay() + 1);
 
-            debugger;
-
             this.weatherData.forecast.forecastday[i].month = forecastMonth;
             this.weatherData.forecast.forecastday[i].monthDay = forecastDay;
             this.weatherData.forecast.forecastday[i].dayOfTheWeek = dayOfWeek;
@@ -73,6 +72,7 @@ export class AppComponent implements OnInit {
     .subscribe({
 
       next: (result) => {
+        this.formattedImgUrl = result.current?.condition?.icon?.replace("64x64", "128x128") ?? "";
         this.currentWeatherData = result;
 
         // for (let i = 0; i < 14; i++) {
