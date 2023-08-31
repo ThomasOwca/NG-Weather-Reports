@@ -310,7 +310,7 @@
   />
   <span>NG Weather Reports</span>
     <div class="spacer"></div>
-    <a aria-label="Weather Dashboard" target="_blank" rel="noopener" href="" title="Weather Dashboard" style="margin-right: 15px;">
+    <a aria-label="Weather Dashboard" target="_blank" rel="noopener" href="" title="Weather Dashboard" style="margin-right: 15px;" routerLink="/weather-history">
       <svg fill="white" xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V400c0 44.2 35.8 80 80 80H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16V64zm406.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L320 210.7l-57.4-57.4c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L240 221.3l57.4 57.4c12.5 12.5 32.8 12.5 45.3 0l128-128z"/></svg>
     </a>
 </div>
@@ -319,15 +319,14 @@
   <search-section (searchChange)="getSearchValFromSearchComp($event)"></search-section>
   <div class="row">
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <location-section></location-section>
+      <location-section [currentWeather]="currentWeatherData"></location-section>
     </div>
     <div class="col-lg-6 col-md-12 col-sm-12">
       <daily-weather [searchTerm]="searchVal" [weatherData]="weatherData"></daily-weather>
     </div>
   </div>
-
-  
-
+  <router-outlet>
+  </router-outlet>
 
   <!-- Highlight Card -->
   <!-- <div class="card highlight-card card-small">
